@@ -67,6 +67,7 @@ const Avatars = Loader(
 );
 const Cards = Loader(lazy(() => import('src/content/pages/Components/Cards')));
 const Forms = Loader(lazy(() => import('src/content/pages/Components/Forms')));
+const Home = Loader(lazy(() => import('src/content/applications/Home')));
 
 // Status
 
@@ -160,7 +161,11 @@ const routes: RouteObject[] = [
     children: [
       {
         path: '',
-        element: <Navigate to="crypto" replace />
+        element: <Navigate to="home" replace />
+      },
+      {
+        path: 'home',
+        element: <Home />
       },
       {
         path: 'crypto',

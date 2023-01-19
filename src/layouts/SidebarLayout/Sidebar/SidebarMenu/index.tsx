@@ -7,7 +7,8 @@ import {
   List,
   styled,
   Button,
-  ListItem
+  ListItem,
+  Divider
 } from '@mui/material';
 import { NavLink as RouterLink } from 'react-router-dom';
 import { SidebarContext } from 'src/contexts/SidebarContext';
@@ -46,7 +47,8 @@ const MenuWrapper = styled(Box)(
       text-transform: uppercase;
       font-weight: bold;
       font-size: ${theme.typography.pxToRem(12)};
-      color: ${theme.colors.alpha.trueWhite[50]};
+      color: #009111;
+      // color: ${theme.colors.alpha.trueWhite[50]};
       padding: ${theme.spacing(0, 2.5)};
       line-height: 1.4;
     }
@@ -75,7 +77,9 @@ const SubMenuWrapper = styled(Box)(
     
         .MuiButton-root {
           display: flex;
-          color: ${theme.colors.alpha.trueWhite[70]};
+          // color: ${theme.colors.alpha.trueWhite[70]};
+          color: #333333;
+          // #009111
           background-color: transparent;
           width: 100%;
           justify-content: flex-start;
@@ -92,13 +96,14 @@ const SubMenuWrapper = styled(Box)(
           }
 
           .MuiButton-startIcon {
-            color: ${theme.colors.alpha.trueWhite[30]};
+            // color: ${theme.colors.alpha.trueWhite[30]};
+            // color: #009111;
             font-size: ${theme.typography.pxToRem(20)};
             margin-right: ${theme.spacing(1)};
           }
           
           .MuiButton-endIcon {
-            color: ${theme.colors.alpha.trueWhite[50]};
+            // color: ${theme.colors.alpha.trueWhite[50]};
             margin-left: auto;
             opacity: .8;
             font-size: ${theme.typography.pxToRem(20)};
@@ -106,12 +111,15 @@ const SubMenuWrapper = styled(Box)(
 
           &.active,
           &:hover {
-            background-color: ${alpha(theme.colors.alpha.trueWhite[100], 0.06)};
-            color: ${theme.colors.alpha.trueWhite[100]};
-
+            // background-color: ${alpha(
+              theme.colors.alpha.trueWhite[100],
+              0.06
+            )};
+            // color: ${theme.colors.alpha.trueWhite[100]};
+            color: #009111;
             .MuiButton-startIcon,
             .MuiButton-endIcon {
-              color: ${theme.colors.alpha.trueWhite[100]};
+              // color: ${theme.colors.alpha.trueWhite[100]};
             }
           }
         }
@@ -144,7 +152,7 @@ const SubMenuWrapper = styled(Box)(
 
               &:before {
                 content: ' ';
-                background: ${theme.colors.alpha.trueWhite[100]};
+                // background: ${theme.colors.alpha.trueWhite[100]};
                 opacity: 0;
                 transition: ${theme.transitions.create([
                   'transform',
@@ -179,8 +187,14 @@ function SidebarMenu() {
 
   return (
     <>
-      <MenuWrapper>
-        {/* <List component="div">
+      <MenuWrapper
+        sx={{
+          display: 'flex',
+          flexDirection: 'column'
+        }}
+      >
+        {/* remove */}
+        <List component="div">
           <SubMenuWrapper>
             <List component="div">
               <ListItem component="div">
@@ -196,7 +210,9 @@ function SidebarMenu() {
               </ListItem>
             </List>
           </SubMenuWrapper>
-        </List> */}
+        </List>
+        {/* remove */}
+
         <List component="div">
           <SubMenuWrapper>
             <List component="div">
@@ -205,7 +221,7 @@ function SidebarMenu() {
                   disableRipple
                   component={RouterLink}
                   onClick={closeSidebar}
-                  to="/dashboards/crypto"
+                  to="/dashboards/home"
                   startIcon={<BrightnessLowTwoToneIcon />}
                 >
                   Home
@@ -216,7 +232,7 @@ function SidebarMenu() {
                   disableRipple
                   component={RouterLink}
                   onClick={closeSidebar}
-                  to="/dashboards/messenger"
+                  to="/dashboards/crypto"
                   startIcon={<MmsTwoToneIcon />}
                 >
                   Collages
@@ -247,17 +263,20 @@ function SidebarMenu() {
             </List>
           </SubMenuWrapper>
         </List>
-        <List
-          component="div"
-          subheader={
-            <ListSubheader component="div" disableSticky>
-              Management
-            </ListSubheader>
-          }
-        >
+
+        <List component="div">
+          <Divider
+            variant="fullWidth"
+            sx={{
+              borderWidth: 1,
+              borderStyle: 'solid',
+              borderColor: '#25311C'
+            }}
+          />
+
           <SubMenuWrapper>
             <List component="div">
-              <ListItem component="div">
+              <ListItem component="div" sx={{ my: 2 }}>
                 <Button
                   disableRipple
                   component={RouterLink}
@@ -265,12 +284,23 @@ function SidebarMenu() {
                   to="/management/transactions"
                   startIcon={<TableChartTwoToneIcon />}
                 >
-                  Employees
+                  John K.
                 </Button>
               </ListItem>
             </List>
           </SubMenuWrapper>
+          <Divider
+            variant="fullWidth"
+            sx={{
+              borderWidth: 1,
+              borderStyle: 'solid',
+              borderColor: '#25311C'
+            }}
+          />
         </List>
+
+        {/* remove */}
+
         <List
           component="div"
           subheader={
@@ -306,6 +336,8 @@ function SidebarMenu() {
             </List>
           </SubMenuWrapper>
         </List>
+        {/* remove */}
+
         <List
           component="div"
           subheader={
@@ -418,13 +450,15 @@ function SidebarMenu() {
             </List>
           </SubMenuWrapper>
         </List>
+        {/* remove */}
+
         <List
           component="div"
-          subheader={
-            <ListSubheader component="div" disableSticky>
-              Extra Pages
-            </ListSubheader>
-          }
+          // subheader={
+          //   <ListSubheader component="div" disableSticky>
+          //     Extra Pages
+          //   </ListSubheader>
+          // }
         >
           <SubMenuWrapper>
             <List component="div">
@@ -436,7 +470,7 @@ function SidebarMenu() {
                   to="/status/404"
                   startIcon={<CheckBoxTwoToneIcon />}
                 >
-                  Error 404
+                  Delete Account
                 </Button>
               </ListItem>
               <ListItem component="div">
@@ -447,10 +481,10 @@ function SidebarMenu() {
                   to="/status/500"
                   startIcon={<CameraFrontTwoToneIcon />}
                 >
-                  Error 500
+                  Log Out
                 </Button>
               </ListItem>
-              <ListItem component="div">
+              {/* <ListItem component="div">
                 <Button
                   disableRipple
                   component={RouterLink}
@@ -460,8 +494,8 @@ function SidebarMenu() {
                 >
                   Coming Soon
                 </Button>
-              </ListItem>
-              <ListItem component="div">
+              </ListItem> */}
+              {/* <ListItem component="div">
                 <Button
                   disableRipple
                   component={RouterLink}
@@ -471,7 +505,7 @@ function SidebarMenu() {
                 >
                   Maintenance
                 </Button>
-              </ListItem>
+              </ListItem> */}
             </List>
           </SubMenuWrapper>
         </List>

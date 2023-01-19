@@ -101,9 +101,12 @@ function Logo() {
   return (
     <LogoWrapper to="/overview">
       <LogoSignWrapper>
-        <Avatar
-          sx={{ width: 38, height: 38 }}
+        <img  
           src="/static/images/logo/logo.svg"
+          style={{ width: 45, height: 45,objectFit:"contain" }}
+          
+          // src=''
+          // <Avatar
         />
       </LogoSignWrapper>
     </LogoWrapper>
