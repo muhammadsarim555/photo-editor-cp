@@ -1,0 +1,34 @@
+body {
+  margin: 0;
+  font-family: 'InterRegular' !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+button {
+  font-family: 'InterRegular' !important;
+}
+
+.MuiDialog-paper {
+  width: 80% !important;
+}
+
+@font-face {
+  font-family: 'InterRegular';
+  src: local('InterRegular'),
+    url(./assets/fonts/InterRegular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'InterBold';
+  src: local('InterBold'), url(./assets/fonts/InterBold.ttf) format('truetype');
+}
+
+h1 {
+  font-family: 'InterBold' !important;
+}

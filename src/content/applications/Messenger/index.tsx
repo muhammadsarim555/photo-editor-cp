@@ -124,7 +124,7 @@ function ApplicationsMessenger() {
               onClick={handleDrawerToggle}
               size="small"
             >
-              <MenuTwoToneIcon />
+              {/* <MenuTwoToneIcon /> */}
             </IconButtonToggle>
             <TopBarContent />
           </ChatTopBar>

@@ -78,7 +78,7 @@ function HeaderUserbox() {
 
   return (
     <>
-      <UserBoxButton color="secondary" ref={ref} onClick={handleOpen}>
+      {/* <UserBoxButton color="secondary" ref={ref} onClick={handleOpen}>
         <Avatar variant="rounded" alt={user.name} src={user.avatar} />
         <Hidden mdDown>
           <UserBoxText>
@@ -91,8 +91,8 @@ function HeaderUserbox() {
         <Hidden smDown>
           <ExpandMoreTwoToneIcon sx={{ ml: 1 }} />
         </Hidden>
-      </UserBoxButton>
-      <Popover
+      </UserBoxButton> */}
+      {/* <Popover
         anchorEl={ref.current}
         onClose={handleClose}
         open={isOpen}
@@ -140,7 +140,7 @@ function HeaderUserbox() {
             Sign out
           </Button>
         </Box>
-      </Popover>
+      </Popover> */}
     </>
   );
 }

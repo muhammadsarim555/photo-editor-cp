@@ -63,8 +63,8 @@ export default function SignUp() {
           sx={{
             alignSelf: 'center',
             alignContent: 'center',
-            my:4,
-            py:8,
+            my: 4,
+            py: 8
           }}
           alignItems="center"
           justifyContent="center"
@@ -131,6 +131,7 @@ export default function SignUp() {
                 <Button
                   variant="text"
                   sx={{ color: '#519900', textTransform: 'none' }}
+                  onClick={() => navigate('/public/terms&Condition')}
                 >
                   Terms of use
                 </Button>

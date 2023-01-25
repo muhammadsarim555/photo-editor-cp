@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import './styles.css';
 import 'nprogress/nprogress.css';
 import App from 'src/App';
 import { SidebarProvider } from 'src/contexts/SidebarContext';
@@ -20,4 +21,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+//  //https://gfp-photo-editor-37210.botics.co/api/v1/
 serviceWorker.unregister();

@@ -9,10 +9,13 @@ import {
   Login,
   Signup,
   Forget,
-  ResetPass
+  ResetPass,
+  TermsCondition,
+  PrivacyPolicy
 } from 'src/content/applications/Auth/index';
 
 import SuspenseLoader from 'src/components/SuspenseLoader';
+import Authenticated from './layouts/Authenticated';
 
 const Loader = (Component) => (props) =>
   (
@@ -87,11 +90,19 @@ const StatusMaintenance = Loader(
 const routes: RouteObject[] = [
   {
     path: '',
-    element: <BaseLayout />,
+    element: (
+      <Authenticated>
+        <BaseLayout />
+      </Authenticated>
+    ),
     children: [
       {
         path: '/',
-        element: <Overview />
+        element: (
+          <Authenticated>
+            <Overview />
+          </Authenticated>
+        )
       },
       {
         path: 'overview',
@@ -134,7 +145,11 @@ const routes: RouteObject[] = [
     children: [
       {
         path: '',
-        element: <Navigate to="login" replace />
+        element: (
+          <Authenticated>
+            <Navigate to="login" replace />
+          </Authenticated>
+        )
       },
       {
         path: 'login',
@@ -156,8 +171,33 @@ const routes: RouteObject[] = [
   },
 
   {
+    path: 'public',
+    children: [
+      {
+        path: '',
+        element: (
+            <Navigate to="terms&Condition" replace />
+        )
+      },
+      {
+        path: 'terms&Condition',
+        element: <TermsCondition />
+      },
+      {
+        path: 'privacyPolicy',
+        element: <PrivacyPolicy />
+      },
+     
+    ]
+  },
+
+  {
     path: 'dashboards',
-    element: <SidebarLayout />,
+    element: (
+      <Authenticated>
+        <SidebarLayout />
+      </Authenticated>
+    ),
     children: [
       {
         path: '',

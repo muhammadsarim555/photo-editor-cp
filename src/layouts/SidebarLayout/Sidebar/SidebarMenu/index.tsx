@@ -13,8 +13,11 @@ import {
 import { NavLink as RouterLink } from 'react-router-dom';
 import { SidebarContext } from 'src/contexts/SidebarContext';
 
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import DesignServicesTwoToneIcon from '@mui/icons-material/DesignServicesTwoTone';
-import BrightnessLowTwoToneIcon from '@mui/icons-material/BrightnessLowTwoTone';
+import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import MmsTwoToneIcon from '@mui/icons-material/MmsTwoTone';
 import TableChartTwoToneIcon from '@mui/icons-material/TableChartTwoTone';
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
@@ -32,6 +35,8 @@ import ChromeReaderModeTwoToneIcon from '@mui/icons-material/ChromeReaderModeTwo
 import WorkspacePremiumTwoToneIcon from '@mui/icons-material/WorkspacePremiumTwoTone';
 import CameraFrontTwoToneIcon from '@mui/icons-material/CameraFrontTwoTone';
 import DisplaySettingsTwoToneIcon from '@mui/icons-material/DisplaySettingsTwoTone';
+import DeleteIcon from '@mui/icons-material/Delete';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const MenuWrapper = styled(Box)(
   ({ theme }) => `
@@ -194,7 +199,7 @@ function SidebarMenu() {
         }}
       >
         {/* remove */}
-        <List component="div">
+        {/* <List component="div">
           <SubMenuWrapper>
             <List component="div">
               <ListItem component="div">
@@ -210,7 +215,7 @@ function SidebarMenu() {
               </ListItem>
             </List>
           </SubMenuWrapper>
-        </List>
+        </List> */}
         {/* remove */}
 
         <List component="div">
@@ -222,7 +227,7 @@ function SidebarMenu() {
                   component={RouterLink}
                   onClick={closeSidebar}
                   to="/dashboards/home"
-                  startIcon={<BrightnessLowTwoToneIcon />}
+                  startIcon={<HomeOutlinedIcon fontSize="large" />}
                 >
                   Home
                 </Button>
@@ -233,7 +238,7 @@ function SidebarMenu() {
                   component={RouterLink}
                   onClick={closeSidebar}
                   to="/dashboards/crypto"
-                  startIcon={<MmsTwoToneIcon />}
+                  startIcon={<AppsOutlinedIcon fontSize="large" />}
                 >
                   Collages
                 </Button>
@@ -244,7 +249,7 @@ function SidebarMenu() {
                   component={RouterLink}
                   onClick={closeSidebar}
                   to="/dashboards/messenger"
-                  startIcon={<MmsTwoToneIcon />}
+                  startIcon={<GroupOutlinedIcon fontSize="large" />}
                 >
                   Employees
                 </Button>
@@ -255,7 +260,7 @@ function SidebarMenu() {
                   component={RouterLink}
                   onClick={closeSidebar}
                   to="/dashboards/messenger"
-                  startIcon={<MmsTwoToneIcon />}
+                  startIcon={<SettingsOutlinedIcon fontSize="large" />}
                 >
                   Settings
                 </Button>
@@ -301,7 +306,7 @@ function SidebarMenu() {
 
         {/* remove */}
 
-        <List
+        {/* <List
           component="div"
           subheader={
             <ListSubheader component="div" disableSticky>
@@ -335,10 +340,10 @@ function SidebarMenu() {
               </ListItem>
             </List>
           </SubMenuWrapper>
-        </List>
+        </List> */}
         {/* remove */}
 
-        <List
+        {/* <List
           component="div"
           subheader={
             <ListSubheader component="div" disableSticky>
@@ -449,7 +454,7 @@ function SidebarMenu() {
               </ListItem>
             </List>
           </SubMenuWrapper>
-        </List>
+        </List> */}
         {/* remove */}
 
         <List
@@ -468,7 +473,7 @@ function SidebarMenu() {
                   component={RouterLink}
                   onClick={closeSidebar}
                   to="/status/404"
-                  startIcon={<CheckBoxTwoToneIcon />}
+                  startIcon={<DeleteIcon fontSize="medium" />}
                 >
                   Delete Account
                 </Button>
@@ -479,7 +484,7 @@ function SidebarMenu() {
                   component={RouterLink}
                   onClick={closeSidebar}
                   to="/status/500"
-                  startIcon={<CameraFrontTwoToneIcon />}
+                  startIcon={<LogoutIcon fontSize="medium" />}
                 >
                   Log Out
                 </Button>
