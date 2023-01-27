@@ -20,7 +20,7 @@ import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import { signupSchema } from 'src/config/authScema';
-import { handleErrorMessage } from 'src/config/helper';
+import { handleErrorMessage, successMsg } from 'src/config/helper';
 import { createResourceWithoutToken } from 'src/config/SimpleApis';
 import { signup_Api } from 'src/config/WebServices';
 
@@ -41,11 +41,6 @@ export default function SignUp() {
   const handleSignUp = async (values) => {
     setLoading(true);
     try {
-      console.log('WORKING', values);
-      // const res = await createResourceWithoutToken(login_Api, {
-      //   username: values.email,
-      //   password: values.password
-      // });
       if (readTerms) {
         const res = await createResourceWithoutToken(signup_Api, {
           name: values.name,
@@ -57,6 +52,9 @@ export default function SignUp() {
           terms_condition: true,
           privacy_policy: true
         });
+
+        successMsg('Account created!');
+        navigate('/auth/login');
       } else {
         errorMsg('Please read Terms & Condition');
       }
@@ -128,9 +126,9 @@ export default function SignUp() {
             </Box>
             <Formik
               initialValues={{
-                password: '12345678',
-                email: 'abc@yopmail.com',
-                name: 'asdfasdfsadf'
+                password: '',
+                email: '',
+                name: ''
               }}
               validationSchema={signupSchema}
               onSubmit={(values) => {
@@ -197,7 +195,11 @@ export default function SignUp() {
                         </Form.Control.Feedback>
                       </Form.Group>
 
-                      <Checkbox {...label} value={readTerms} onChange={() => setReadTerms(!readTerms)}/>
+                      <Checkbox
+                        {...label}
+                        value={readTerms}
+                        onChange={() => setReadTerms(!readTerms)}
+                      />
                       <Typography component="span">
                         I have read and to the
                       </Typography>

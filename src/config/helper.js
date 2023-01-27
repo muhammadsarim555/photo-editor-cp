@@ -2,28 +2,29 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const handleErrorMessage = (error) => {
-  console.log(
-    '🚀 ~ file: helper.js:6 ~ handleErrorMessage ~ error.response.data.msg',
-    error.response.data.non_field_errors[0]
-  );
-  if (error.response) {
-    // ErrorHelper.handleErrors(error.response.data.non_field_errors[0], true);
+  let keyError;
 
-    console.log(
-      '🚀 ~ file: helper.js:11 ~ handleErrorMessage ~ (error.response.data',
-      error.response.data
-    );
-    if (error.response.data.non_field_errors.length) {
-      errorMsg(error.response.data.non_field_errors[0]);
-    }
-  } else if (error.request) {
-    errorMsg('Something Went Wrong!');
+  const networkErrorMessage =
+    error?.code === 'ERR_NETWORK' ? 'Error: Cannot connect to server' : '';
 
-    // ErrorHelper.handleErrors('Something Went Wrong!', true);
-  } else {
-    // ErrorHelper.handleErrors('Something Went Wrong!', true);
-    errorMsg('Something Went Wrong!');
+  for (const [key, value] of Object.entries(error?.response?.data)) {
+    keyError = `${value}`;
+    // keyError = `${key}: ${value}`;
   }
+
+  const msg =
+    networkErrorMessage ||
+    error?.response?.data?.detail ||
+    error?.response?.data?.message ||
+    keyError;
+
+  //  ||
+  // error?.response?.data?.email[0] ||
+  if (msg) {
+    errorMsg(msg || 'Something went wrong');
+  }
+
+  // return Promise.reject(error)
 };
 
 export const successMsg = (msg) =>
@@ -59,5 +60,7 @@ export const warnMsg = (msg) => {
     progress: undefined
   });
 };
+
+export const getToken = () => localStorage.getItem('token');
 
 export { handleErrorMessage };

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import CameraIcon from '@mui/icons-material/PhotoCamera';
@@ -24,12 +24,37 @@ import Footer from 'src/components/Footer';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import { errorMsg, getToken } from 'src/config/helper';
+import { get_photos } from 'src/config/WebServices';
+import { getResource } from 'src/config/SimpleApis';
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const theme = createTheme();
 
 export default function Album() {
+  const [loading, setLoading] = useState(false);
+  const [allImages, setAllImages] = useState([]);
+
+  useEffect(() => {
+    handleGetPhotos();
+  }, []);
+
+  const handleGetPhotos = async () => {
+    try {
+      setLoading(true);
+
+      const token = getToken();
+
+      const res = await getResource(get_photos, token);
+      setAllImages(res);
+    } catch (e) {
+      errorMsg(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Helmet>
@@ -51,7 +76,7 @@ export default function Album() {
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
-                  background:"transparent",
+                  background: 'transparent',
                   height: '100%'
                 }}
               >

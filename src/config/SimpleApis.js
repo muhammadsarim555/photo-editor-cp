@@ -29,8 +29,9 @@ const createResourceWithoutToken = (api, data, token) => {
 const getResource = (api, token) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${api}`, { headers: { Authorization: 'Bearer ' + token } })
+      .get(`${api}`, { headers: { Authorization: `Token ${token}` } })
       .then((response) => {
+        console.log("🚀 ~ file: SimpleApis.js:34 ~ .then ~ response", response)
         resolve(response);
       })
       .catch((error) => {
