@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,8 +14,19 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { ToastContainer } from 'react-toastify';
+import { Formik } from 'formik';
+
 import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
+import { signupSchema } from 'src/config/authScema';
+import { handleErrorMessage } from 'src/config/helper';
+import { createResourceWithoutToken } from 'src/config/SimpleApis';
+import { signup_Api } from 'src/config/WebServices';
+
+import { errorMsg } from '../../../config/helper';
+
+import CircularProgress from '@mui/material/CircularProgress';
 
 const theme = createTheme();
 
@@ -24,13 +35,38 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 export default function SignUp() {
   const navigate = useNavigate();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password')
-    });
+  const [loading, setLoading] = useState(false);
+  const [readTerms, setReadTerms] = useState(false);
+
+  const handleSignUp = async (values) => {
+    setLoading(true);
+    try {
+      console.log('WORKING', values);
+      // const res = await createResourceWithoutToken(login_Api, {
+      //   username: values.email,
+      //   password: values.password
+      // });
+      if (readTerms) {
+        const res = await createResourceWithoutToken(signup_Api, {
+          name: values.name,
+          password: values.password,
+          email: values.email,
+          last_name: 'tester',
+          phone_number: '+973930303030',
+          user_type: 'owner',
+          terms_condition: true,
+          privacy_policy: true
+        });
+      } else {
+        errorMsg('Please read Terms & Condition');
+      }
+      // localStorage.setItem('token', res.data.token);
+      // navigate('/dashboards/home');
+    } catch (e) {
+      handleErrorMessage(e);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -90,96 +126,141 @@ export default function SignUp() {
                 Create an account below.
               </Typography>
             </Box>
-
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
-              sx={{ mt: 1 }}
+            <Formik
+              initialValues={{
+                password: '12345678',
+                email: 'abc@yopmail.com',
+                name: 'asdfasdfsadf'
+              }}
+              validationSchema={signupSchema}
+              onSubmit={(values) => {
+                handleSignUp(values);
+              }}
             >
-              <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label style={{ color: '#344054' }}>Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter your name"
-                    required
-                  />
-                </Form.Group>
+              {({ errors, touched, handleChange, handleSubmit, values }) => {
+                return (
+                  <Box
+                    // component="form"
+                    // noValidate
+                    // onSubmit={handleSubmit}
+                    sx={{ mt: 1 }}
+                  >
+                    <Form>
+                      <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label style={{ color: '#344054' }}>
+                          Name
+                        </Form.Label>
+                        <Form.Control
+                          type="text"
+                          placeholder="Enter your name"
+                          onChange={handleChange('name')}
+                          isInvalid={errors.name ? true : false}
+                          value={values.name}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.name}
+                        </Form.Control.Feedback>
+                      </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label style={{ color: '#344054' }}>Email</Form.Label>
-                  <Form.Control type="email" placeholder="Enter your email" />
-                  <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
-                  </Form.Text>
-                </Form.Group>
+                      <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label style={{ color: '#344054' }}>
+                          Email
+                        </Form.Label>
+                        <Form.Control
+                          type="email"
+                          placeholder="Enter your email"
+                          onChange={handleChange('email')}
+                          isInvalid={errors.email ? true : false}
+                          value={values.email}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.email}
+                        </Form.Control.Feedback>
+                      </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label style={{ color: '#344054' }}>Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="Enter your Password"
-                  />
-                  <Form.Text className="text-muted">
-                    Must be at least 8 characters.
-                  </Form.Text>
-                </Form.Group>
+                      <Form.Group
+                        className="mb-3"
+                        controlId="formBasicPassword"
+                      >
+                        <Form.Label style={{ color: '#344054' }}>
+                          Password
+                        </Form.Label>
+                        <Form.Control
+                          type="password"
+                          placeholder="Enter your Password"
+                          onChange={handleChange('password')}
+                          isInvalid={errors.password ? true : false}
+                          value={values.password}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.password}
+                        </Form.Control.Feedback>
+                      </Form.Group>
 
-                <Checkbox {...label} defaultChecked={true} />
-                <Typography component="span">I have read and to the</Typography>
-                <Button
-                  variant="text"
-                  sx={{ color: '#519900', textTransform: 'none' }}
-                  onClick={() => navigate('/public/terms&Condition')}
-                >
-                  Terms of use
-                </Button>
-                <Typography component="span">and the</Typography>
-                <Button
-                  variant="text"
-                  sx={{ color: '#519900', textTransform: 'none' }}
-                >
-                  Privacy policy
-                </Button>
-              </Form>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{
-                  mt: 3,
-                  mb: 2,
-                  background: '#4D9900',
-                  py: 1,
-                  borderRadius: 2,
-                  textTransform: 'none'
-                }}
-              >
-                Create account
-              </Button>
+                      <Checkbox {...label} value={readTerms} onChange={() => setReadTerms(!readTerms)}/>
+                      <Typography component="span">
+                        I have read and to the
+                      </Typography>
+                      <Button
+                        variant="text"
+                        sx={{ color: '#519900', textTransform: 'none' }}
+                        onClick={() => navigate('/public/terms&Condition')}
+                      >
+                        Terms of use
+                      </Button>
+                      <Typography component="span">and the</Typography>
+                      <Button
+                        variant="text"
+                        sx={{ color: '#519900', textTransform: 'none' }}
+                      >
+                        Privacy policy
+                      </Button>
+                    </Form>
+                    <Button
+                      type="button"
+                      fullWidth
+                      variant="contained"
+                      sx={{
+                        mt: 3,
+                        mb: 2,
+                        background: '#4D9900',
+                        py: 1,
+                        borderRadius: 2,
+                        textTransform: 'none'
+                      }}
+                      onClick={() => handleSubmit()}
+                      startIcon={
+                        loading ? <CircularProgress size="1rem" /> : null
+                      }
+                      disabled={loading}
+                    >
+                      Create account
+                    </Button>
 
-              <Box
-                sx={{
-                  alignSelf: 'center',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}
-              >
-                <Typography component="span">
-                  Already have an account?
-                </Typography>
+                    <Box
+                      sx={{
+                        alignSelf: 'center',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                      }}
+                    >
+                      <Typography component="span">
+                        Already have an account?
+                      </Typography>
 
-                <Button
-                  variant="text"
-                  sx={{ color: '#519900', textTransform: 'none' }}
-                  onClick={() => navigate('/auth/login')}
-                >
-                  Log in
-                </Button>
-              </Box>
-            </Box>
+                      <Button
+                        variant="text"
+                        sx={{ color: '#519900', textTransform: 'none' }}
+                        onClick={() => navigate('/auth/login')}
+                      >
+                        Log in
+                      </Button>
+                    </Box>
+                  </Box>
+                );
+              }}
+            </Formik>
           </Box>
         </Grid>
 
@@ -201,6 +282,7 @@ export default function SignUp() {
           }}
         />
       </Grid>
+      <ToastContainer />
     </ThemeProvider>
   );
 }

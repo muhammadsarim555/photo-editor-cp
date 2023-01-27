@@ -25,6 +25,18 @@ button {
 }
 
 @font-face {
+  font-family: 'InterThin';
+  src: local('InterThin'),
+    url(./assets/fonts/InterThin.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'InterLight';
+  src: local('InterLight'),
+    url(./assets/fonts/InterLight.ttf) format('truetype');
+}
+
+@font-face {
   font-family: 'InterBold';
   src: local('InterBold'), url(./assets/fonts/InterBold.ttf) format('truetype');
 }

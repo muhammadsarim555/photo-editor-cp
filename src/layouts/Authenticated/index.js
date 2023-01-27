@@ -53,7 +53,7 @@ const Authenticated = (props) => {
 
   if (token === null) {
     navigate('/auth/login');
-    return <Navigate to="/auth/login" replace />
+    return <Navigate to="/auth/login" replace />;
   }
   //    else if (!auth.isAuthenticated && auth.isInitialized) {
   //     if (location.pathname !== requestedLocation) {

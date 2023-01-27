@@ -15,12 +15,11 @@ export default function Splash() {
   useEffect(() => {
     setTimeout(() => {
       const token = localStorage.getItem('token');
-      console.log("🚀 ~ file: index.tsx:18 ~ setTimeout ~ token", token)
 
       if (token) {
         navigate('/dashboards/home');
       } else {
-        navigate('/auth');
+        navigate('/auth/login');
       }
     }, 2000);
   }, []);

@@ -14,6 +14,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { ToastContainer } from 'react-toastify';
 import { Formik } from 'formik';
 
 import { useNavigate } from 'react-router-dom';
@@ -33,24 +34,13 @@ export default function SignInSide() {
 
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (values) => {
+  const handleLogin = async (values) => {
     setLoading(true);
     try {
       const res = await createResourceWithoutToken(login_Api, {
         username: values.email,
         password: values.password
       });
-
-      // const res = await createResourceWithoutToken(signup_Api, {
-      //   name: 'tester1',
-      //   password: 'arslan123!',
-      //   email: 'ranaarslan.zaheer11@crowdbotics.com',
-      //   last_name: 'tester',
-      //   phone_number: '+973930303030',
-      //   user_type: 'owner',
-      //   terms_condition: true,
-      //   privacy_policy: true
-      // });
 
       localStorage.setItem('token', res.data.token);
       navigate('/dashboards/home');
@@ -118,21 +108,23 @@ export default function SignInSide() {
             </Box>
             <Formik
               initialValues={{
-                password: 'arslan123!',
-                email: 'ranaarslan.zaheer11@crowdbotics.com'
+                password: '',
+                email: ''
               }}
               validationSchema={loginSchema}
               onSubmit={(values) => {
-                handleSubmit(values);
+                handleLogin(values);
               }}
             >
               {({ errors, touched, handleChange, handleSubmit, values }) => {
                 return (
                   <Box
-                    component="form"
-                    noValidate
-                    onSubmit={handleSubmit}
                     sx={{ mt: 1 }}
+
+                    // component="form"
+                    // // noValidate
+                    // // onSubmit={() => handleSubmit()}
+                    // onSubmit={() => alert("ssssssss")}
                   >
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Label style={{ color: '#344054' }}>
@@ -187,7 +179,7 @@ export default function SignInSide() {
                       </Button>
                     </Box>
                     <Button
-                      type="submit"
+                      type="button"
                       fullWidth
                       variant="contained"
                       sx={{
@@ -198,6 +190,7 @@ export default function SignInSide() {
                         borderRadius: 2,
                         textTransform: 'none'
                       }}
+                      onClick={() => handleSubmit()}
                       startIcon={
                         loading ? <CircularProgress size="1rem" /> : null
                       }
@@ -232,7 +225,6 @@ export default function SignInSide() {
             </Formik>
           </Box>
         </Grid>
-
         <Grid
           item
           xs={false}
@@ -251,6 +243,7 @@ export default function SignInSide() {
           }}
         />
       </Grid>
+      <ToastContainer />
     </ThemeProvider>
   );
 }

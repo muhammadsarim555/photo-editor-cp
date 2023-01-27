@@ -1,3 +1,6 @@
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const handleErrorMessage = (error) => {
   console.log(
     '🚀 ~ file: helper.js:6 ~ handleErrorMessage ~ error.response.data.msg',
@@ -11,16 +14,50 @@ const handleErrorMessage = (error) => {
       error.response.data
     );
     if (error.response.data.non_field_errors.length) {
-      alert(error.response.data.non_field_errors[0]);
+      errorMsg(error.response.data.non_field_errors[0]);
     }
   } else if (error.request) {
-    alert('Something Went Wrong!');
+    errorMsg('Something Went Wrong!');
 
     // ErrorHelper.handleErrors('Something Went Wrong!', true);
   } else {
     // ErrorHelper.handleErrors('Something Went Wrong!', true);
-    alert('Something Went Wrong!');
+    errorMsg('Something Went Wrong!');
   }
+};
+
+export const successMsg = (msg) =>
+  toast.success(msg, {
+    position: 'top-center',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+  });
+export const errorMsg = (msg) => {
+  toast.error(msg, {
+    position: 'top-center',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+  });
+};
+
+export const warnMsg = (msg) => {
+  toast.warn(msg, {
+    position: 'top-center',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+  });
 };
 
 export { handleErrorMessage };

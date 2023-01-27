@@ -24,17 +24,31 @@ function PageSubHeader({ heading }) {
         <Typography variant="h2" component="h2" gutterBottom>
           {heading}
         </Typography>
-        {/* <Typography variant="subtitle2">
-          {user.name}, these are your recent transactions
-        </Typography> */}
       </Grid>
       <Grid item>
         <Button
           variant="outlined"
-          sx={{ margin: 1, color: '#333333', borderColor: '#333333' }}
-          startIcon={<TuneIcon />}
+          sx={{ margin: 1, color: '#333333', borderColor: '#C4C4C4' }}
+          startIcon={
+            <TuneIcon
+              sx={{
+                fontFamily: 'InterRegular',
+                justifyContent: 'center',
+                alignItems: 'center',
+                alignSelf: 'center',
+                color: '#C4C4C4'
+              }}
+            />
+          }
         >
-          Filter
+          <Typography
+            variant="subtitle2"
+            gutterBottom
+            color={'black'}
+            sx={{ fontFamily: 'InterRegular', color: '#C4C4C4' }}
+          >
+            Filter
+          </Typography>
         </Button>
       </Grid>
 
